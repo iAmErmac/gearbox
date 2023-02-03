@@ -13,7 +13,7 @@ user bool  gb_show_tags = true;
 // 1 - wheel view
 user int gb_view_type = 1;
 
-user bool  gb_enable_dim       = true;
+user bool  gb_enable_dim       = false;
 user bool  gb_enable_blur      = false;
 user float gb_wheel_position   = 1.0;
 user float gb_wheel_scale      = 1.0;
@@ -50,8 +50,8 @@ user bool gb_frozen_can_open  = false;
 
 user int  gb_time_freeze      = 0;
 
-user float gb_mouse_sensitivity_x = 1.0;
-user float gb_mouse_sensitivity_y = 1.0;
+user float gb_mouse_sensitivity_x = 1.5;
+user float gb_mouse_sensitivity_y = 1.5;
 
 user bool gb_zabor_enabled = true;
 

@@ -48,13 +48,11 @@ GB_FREEZE_TIME       = "Freeze";
 GB_LEVEL_AND_PLAYER  = "Enemies and player (single-player only)";
 GB_PLAYER            = "Player";
 
-GB_MOUSE_IN_WHEEL    = "Enable mouse input";
+GB_MOUSE_IN_WHEEL    = "Enable joystick input";
 GB_MULTIWHEEL_LIMIT  = "Multiwheel threshold";
 
-GB_MOUSE_SENSITIVITY = "Mouse sensitivity";
-GB_X = "Horizontal";
-GB_Y = "Vertical";
-GB_Y_BOUNDARY = "Vertical lower boundary";
+GB_MOUSE_SENSITIVITY = "Joystick sensitivity";
+GB_X = "Joystick speed";
 
 GB_WHEEL_OPTIONS        = "Wheel options";
 GB_WHEEL_OPTIONS_TITLE  = "Gearbox Wheel Options";

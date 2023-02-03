@@ -52,22 +52,23 @@ class gb_WheelController
     if (!mOptions.isMouseInWheel()) return;
 
     vector2 mouseSensitivity = mOptions.getMouseSensitivity();
-    double yawMod   = 0.08 * mouseSensitivity.x;
-    double pitchMod = 0.08 * mouseSensitivity.y;
 
     PlayerInfo player = players[consolePlayer];
-    // Code derived from PyWeaponWheel's mouse input handling.
-    mX -= int(round(player.original_cmd.yaw   * yawMod  ));
-    mY -= int(round(player.original_cmd.pitch * pitchMod));
-
-    if (multiplayer)
-    {
-      gb_Sender.sendPlayerAngles(mStartPitch, mStartYaw);
-    }
-    else
-    {
-      gb_Changer.setAngles(players[consolePlayer], mStartPitch, mStartYaw);
-    }
+	
+	//stop player motion
+	player.mo.vel = (0, 0, 0);
+	
+	//This will let us use joystick as mouse
+	let joypad_speed = mouseSensitivity.x * 15;
+	let pos = joypad_speed * (
+			15.0 * player.original_cmd.sidemove		/ 10240,
+		-	15.0 * player.original_cmd.forwardmove	/ 12800);
+	
+	//resume player motion
+	player.mo.vel = player.mo.default.vel;
+	
+	mX = pos.x;
+	mY = pos.y;
 
     vector2 center = mScreen.getWheelCenter();
     int centerX = int(center.x);
