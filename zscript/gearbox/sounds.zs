@@ -1,4 +1,5 @@
-/* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2021
+/* Copyright Alexander Kromm (mmaulwurff@gmail.com) 2021-2022
+ * Carrascado 2022
  *
  * This file is part of Gearbox.
  *
@@ -17,8 +18,8 @@
 
 class gb_Sounds
 {
-
   static
+  
   gb_Sounds from(gb_Options options)
   {
     let result = new("gb_Sounds");
@@ -28,12 +29,66 @@ class gb_Sounds
 
   void playTick()
   {
-    playSound("gearbox/tick");
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/tick");
+            break;
+        case(1):
+            playSound("gearbox/pack/tick");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
   }
 
-  void playToggle()
+  void playOpen()
   {
-    playSound("gearbox/toggle");
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/open");
+            break;
+        case(1):
+            playSound("gearbox/pack/open");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
+  }
+
+  void playClose()
+  {
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/close");
+            break;
+        case(1):
+            playSound("gearbox/pack/close");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
+  }
+
+  void playNope()
+  {
+    switch(mOptions.GetSoundpack())
+    {
+        case(0):
+            playSound("gearbox/nope");
+            break;
+        case(1):
+            playSound("gearbox/pack/nope");
+            break;
+        DEFAULT:
+            playSound("gearbox/nope");
+            break;
+    }
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////

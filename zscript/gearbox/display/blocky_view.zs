@@ -181,7 +181,7 @@ class gb_BlockyView
 
         if (mOptions.isShowingTags()) drawTag(viewModel.tags[i], aFont, slotX, weaponY);
       }
-      else // unselected slot (small boxes)
+      else // not selected slot (small boxes)
       {
         int boxY = startY - MARGIN + (SLOT_SIZE + MARGIN) * (inSlotIndex + 1);
         drawAlphaTexture(mTextureCache.blockBox, slotX, boxY, mBaseColor);
@@ -287,6 +287,7 @@ class gb_BlockyView
 
     // If there are too many lines, put them on the third line and mark the it
     // with ellipsis.
+    string ellipsis = aFont.GetHeight() ? "…" : "...";
     uint nLines = lines.size();
     if (nLines > 3)
     {
@@ -294,13 +295,13 @@ class gb_BlockyView
       {
         lines[2].appendFormat(" %s", lines[i]);
       }
-      lines[2].appendFormat("…");
+      lines[2] = lines[2] .. ellipsis;
     }
 
     // If a line is too long to fit in the box, replace the part that doesn't
     // fit with ellipsis.
     uint linesEnd = min(nLines, 3);
-    int ellipsisWidth = aFont.stringWidth("…");
+    int ellipsisWidth = aFont.stringWidth(ellipsis);
     for (uint i = 0; i < linesEnd; ++i)
     {
       if (aFont.stringWidth(lines[i]) <= allowedStringWidth) continue;
@@ -309,11 +310,11 @@ class gb_BlockyView
       {
         lines[i].deleteLastCharacter();
       }
-      lines[i].appendFormat("…");
+      lines[i] = lines[i] .. ellipsis;
     }
 
     // Finally, print lines.
-    int lineHeight = aFont.getHeight() * 95 / 100;
+    int lineHeight = aFont.getHeight();
     for (uint i = 0; i < linesEnd; ++i)
     {
       double y = startY + SELECTED_WEAPON_HEIGHT + (i - linesEnd) * lineHeight;
@@ -460,6 +461,8 @@ class gb_BlockyView
   const AMMO_HEIGHT = 6;
 
   const FILLED_AMMO_COLOR = 0x22DD22;
+
+  const ELLIPSIS_CODE = 8230;
 
   private double mAlpha;
 

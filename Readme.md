@@ -26,7 +26,7 @@ GZDoom 4.5 required.
 - Different representations: blocks, wheel, plain text
 - Press Fire key to select and Alt Fire key to cancel
 - Color and scale options
-- Customizable behavior
+- Behavior options
 - Multiplayer compatible
 - Reaction to number keys
 - extras.wad icon support for vanilla weapons
@@ -57,7 +57,7 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 ## Known Issues
 
 - Weapon icons in wheel aren't affected by "HUD preserves aspect ration" option.
-- Mouse input in wheel in multiplayer causes screen jitter.
+- Mouse input in wheel in multiplayer causes screen shake.
 
 ## License
 
@@ -72,10 +72,13 @@ Inventory.AltHudIcon for your weapons! Tag property is also nice to have.
 - Thanks to Player701 for help with key event processing code.
 - Thanks to KeksDose for a concept of VM abort handler.
 - Thanks to DrPyspy for allowing to use mouse input code from PyWeaponWheel.
+- Thanks to Carrascado for bug fixes and new features.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, TheRailgunner, Captain J,
   Enjay, StroggVorbis, krutomisi, Cutmanmike, StraightWhiteMan, JohnDoe8, HDV,
   Zhs2 and Apollucas for feature suggestions.
 - Thanks to Accensus, Proydoha, mamaluigisbagel, Ac!d, wildweasel,
   Dark-Assassin, rparhkdtp, Samarai1000, Mr. Blazkowicz, lucker42, spectrefps,
-  Someone64, Lippeth and JMartinez9820 for bug reports.
+  Someone64, Lippeth, JMartinez9820, generic name guy and sebastianpanetta for
+  bug reports.
+- Thanks to generic name guy for providing brazilian portuguese localization.
 - See also [credits list](credits.md).
