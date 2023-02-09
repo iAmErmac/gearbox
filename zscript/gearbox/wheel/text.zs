@@ -94,6 +94,17 @@ class gb_Text
     if (middleText.length() > 0) draw(middleText, center       , aFont, alpha);
     if (bottomText.length() > 0) draw(bottomText, center + line, aFont, alpha);
   }
+  
+  void drawHiliteMsg( string hiliteMessage )
+  {
+	screen.DrawText (SmallFont
+					, Font.CR_CYAN
+					, 10
+					, 10
+					, hiliteMessage
+					, DTA_320x200, true
+					);
+  }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 

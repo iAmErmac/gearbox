@@ -51,21 +51,13 @@ class gb_WheelController
   {
     if (!mOptions.isMouseInWheel()) return;
 
-    vector2 mouseSensitivity = mOptions.getMouseSensitivity();
-
     PlayerInfo player = players[consolePlayer];
 	
-	//stop player motion
-	player.mo.vel = (0, 0, 0);
-	
 	//This will let us use joystick as mouse
-	let joypad_speed = mouseSensitivity.x * 15;
+	let joypad_speed = Int(mOptions.getWheelScale() * 20);
 	let pos = joypad_speed * (
 			15.0 * player.original_cmd.sidemove		/ 10240,
 		-	15.0 * player.original_cmd.forwardmove	/ 12800);
-	
-	//resume player motion
-	player.mo.vel = player.mo.default.vel;
 	
 	mX = pos.x;
 	mY = pos.y;

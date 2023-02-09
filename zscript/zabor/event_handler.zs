@@ -95,6 +95,7 @@ class gb_VmAbortHandler : EventHandler
         floatCvarToString ("gb_wheel_scale"             ),
         intCvarToString   ("gb_wheel_tint"              ),
         intCvarToString   ("gb_multiwheel_limit"        ),
+        intCvarToString   ("gb_wheel_msg"        		),
 
         floatCvarToString ("gb_blocks_position_x"       ),
         floatCvarToString ("gb_blocks_position_y"       ),
@@ -121,6 +122,9 @@ class gb_VmAbortHandler : EventHandler
         intCvarToString   ("gb_frozen_can_open"         ),
 
         intCvarToString   ("gb_time_freeze"             ),
+        intCvarToString   ("gb_time_freeze_invul"       ),
+        intCvarToString   ("gb_time_slow"             	),
+        intCvarToString   ("gb_time_slow_sound"         ),
 
         floatCvarToString ("gb_mouse_sensitivity_x"     ),
         floatCvarToString ("gb_mouse_sensitivity_y"     )

@@ -46,8 +46,12 @@ class gb_Options
     result.mSelectOnKeyUp          = gb_Cvar.from("gb_select_on_key_up");
     result.mNoMenuIfOne            = gb_Cvar.from("gb_no_menu_if_one");
     result.mTimeFreeze             = gb_Cvar.from("gb_time_freeze");
+    result.mTimeFreezeInvul        = gb_Cvar.from("gb_time_freeze_invul");
+    result.mTimeSlow               = gb_Cvar.from("gb_time_slow");
+    result.mTimeSlowSound          = gb_Cvar.from("gb_time_slow_sound");
     result.mOnAutomap              = gb_Cvar.from("gb_on_automap");
     result.mEnableSounds           = gb_Cvar.from("gb_enable_sounds");
+    result.mWheelHiliteMsg         = gb_Cvar.from("gb_wheel_msg");
 
     result.mMouseSensitivityX      = gb_Cvar.from("gb_mouse_sensitivity_x");
     result.mMouseSensitivityY      = gb_Cvar.from("gb_mouse_sensitivity_y");
@@ -95,8 +99,12 @@ class gb_Options
   bool isNoMenuIfOne()               const { return mNoMenuIfOne           .getBool();    }
   bool isOnAutomap()                 const { return mOnAutomap             .getBool();    }
   bool isSoundEnabled()              const { return mEnableSounds          .getBool();    }
+  bool showWheelHiliteMsg()          const { return mWheelHiliteMsg        .getBool();    }
 
   int  getTimeFreezeMode()           const { return mTimeFreeze            .getInt();     }
+  bool getTimeFreezeInvMode()        const { return mTimeFreezeInvul       .getBool();    }
+  bool getTimeSlowMode()             const { return mTimeSlow              .getBool();    }
+  bool getTimeSlowSound()            const { return mTimeSlowSound         .getBool();    }
   
   int  getSoundpack()           const { return mUseSoundpack          .getInt();     }
 
@@ -150,8 +158,12 @@ class gb_Options
   private gb_Cvar mSelectOnKeyUp;
   private gb_Cvar mNoMenuIfOne;
   private gb_Cvar mTimeFreeze;
+  private gb_Cvar mTimeFreezeInvul;
+  private gb_Cvar mTimeSlow;
+  private gb_Cvar mTimeSlowSound;
   private gb_Cvar mOnAutomap;
   private gb_Cvar mEnableSounds;
+  private gb_Cvar mWheelHiliteMsg;
   private gb_Cvar mFrozenCanOpen;
   private gb_Cvar mPreserveAspectRatio;
 

@@ -53,6 +53,10 @@ OptionMenu gb_BehaviorOptions
   StaticText  ""
   Option      "$GB_SELECT_ON_KEY_UP"         , gb_select_on_key_up         , OnOff
   Option      "$GB_FREEZE_TIME"              , gb_time_freeze              , gb_FreezeValues
+  Option      "$GB_FREEZE_INVUL"             , gb_time_freeze_invul        , OnOff
+  Option      "$GB_SLOW_TIME"                , gb_time_slow                , OnOff
+  StaticText  "$GB_SLOW_TIME_NOTE", black
+  Option      "$GB_SLOW_SOUND"               , gb_time_slow_sound          , OnOff
   Option      "$GB_ENABLE_ON_AUTOMAP"        , gb_on_automap               , OnOff
   Option      "$GB_LOCK_POSITION"            , gb_lock_positions           , OnOff
   Option      "$GB_FROZEN_CAN_OPEN"          , gb_frozen_can_open          , OnOff
@@ -103,7 +107,7 @@ OptionMenu gb_WheelOptions
 
   StaticText  ""
   Slider      "$GB_WHEEL_X"     , gb_wheel_position , -1.5, 1.5, 0.1, 1
-  Slider      "$GB_WHEEL_SCALE" , gb_wheel_scale    , 0.1, 2, 0.1, 1
+  Slider      "$GB_WHEEL_SCALE" , gb_wheel_scale    , 0.5, 2, 0.1, 1
   Option      "$GB_WHEEL_TINT"  , gb_wheel_tint     , OnOff
 
   StaticText  ""
@@ -111,8 +115,7 @@ OptionMenu gb_WheelOptions
   Slider      "$GB_MULTIWHEEL_LIMIT"  , gb_multiwheel_limit , 3, 100, 1, 0
 
   StaticText  ""
-  StaticText  "$GB_MOUSE_SENSITIVITY", 1
-  Slider      "$GB_X", gb_mouse_sensitivity_x, 1.0, 2.0, 0.1, 1
+  Option      "$GB_WHEEL_HILITE_MSG"  , gb_wheel_msg  , OnOff
 
 }
 

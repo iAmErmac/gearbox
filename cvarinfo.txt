@@ -20,6 +20,8 @@ user float gb_wheel_scale      = 1.0;
 user bool  gb_wheel_tint       = true;
 user int   gb_multiwheel_limit = 12;
 
+user bool gb_wheel_msg = true;
+
 user float gb_blocks_position_x = 0.0;
 user float gb_blocks_position_y = 0.0;
 
@@ -48,7 +50,10 @@ user bool gb_lock_positions   = false;
 user bool gb_enable_sounds    = true;
 user bool gb_frozen_can_open  = false;
 
-user int  gb_time_freeze      = 0;
+user int  gb_time_freeze      	= 0;
+user bool gb_time_freeze_invul 	= true;
+user bool gb_time_slow 			= true;
+user bool gb_time_slow_sound 	= false;
 
 user float gb_mouse_sensitivity_x = 1.5;
 user float gb_mouse_sensitivity_y = 1.5;

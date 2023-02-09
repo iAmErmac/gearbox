@@ -15,3 +15,4 @@
 - Wheel mouse input code is based on code from PyWeaponWheel by DrPyspy.
 - [MD5 Implementation in ZScript](https://github.com/3saster/GZDoom_Utilities) by 3saster (see [MD5.zs](zscript/MD5/MD5.zs) for license).
 - Brazilian portuguese localization by generic name guy.
+- Alternate time freeze mode and modified Bullet-Time-X mod event-handler wrtten by Ermac

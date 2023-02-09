@@ -463,6 +463,15 @@ class gb_WheelView
       ? string.format("%d/%d", viewModel.quantity2[index], viewModel.maxQuantity2[index])
       : "";
 
+    if(mOptions.showWheelHiliteMsg())
+	{
+		if(ammo1 == "")
+			mText.drawHiliteMsg(description);
+		else
+			mText.drawHiliteMsg(string.format("%s [%s\%s]", description, ammo1, ammo2));
+		return;
+	}
+
     double  angle   = itemAngle(nPlaces, innerIndex);
     bool    isOnTop = isSlotExpanded && (90.0 < angle && angle < 270.0);
     vector2 pos     = mCenter;
