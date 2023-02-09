@@ -5,7 +5,7 @@ select weapons and items.
 
 This mod is a part of [m8f's toolbox](https://mmaulwurff.github.io/pages/toolbox).
 
-![PyWeaponWheel mod for Doom](https://i.imgflip.com/7ahvfi.gif)
+![Gearbox mod for Doom](https://i.imgflip.com/7ahvfi.gif)
 
 To download Gearbox VR Edition click the download button below:
 
@@ -50,6 +50,7 @@ GZDoom 4.5 required.
 
 - Weapon icons in wheel aren't affected by "HUD preserves aspect ration" option.
 - Anything other than monsters and proectiles will not freeze when the weapon wheel is open including decorative actors, ACS scripts and platforms/lifts.
+- There are some inherent bugs associated with the new freezing system where a projectile can still be fired (eg. rocket or bfg) when player and monsters are frozen and the hitting projectile may push away monsters infinitely or make them come alive.
 - When loaded after Bullet-Time-X but slow-mo not enabled, opening the weapon wheel will reset adrenaline for Bullet Time. In that case use an alternate slow-mo mod like [SlomoBulletTime Ultimate](https://www.moddb.com/addons/slomobullettime-ultimate-r3)
 
 ## Planned
