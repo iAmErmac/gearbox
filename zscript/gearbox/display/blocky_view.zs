@@ -287,7 +287,7 @@ class gb_BlockyView
 
     // If there are too many lines, put them on the third line and mark the it
     // with ellipsis.
-    string ellipsis = aFont.GetHeight() ? "…" : "...";
+    string ellipsis = aFont.getGlyphHeight(ELLIPSIS_CODE) ? "…" : "...";
     uint nLines = lines.size();
     if (nLines > 3)
     {
