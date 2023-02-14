@@ -102,6 +102,8 @@ class gb_Freezer play
 	
 	if(mWasLevelFrozen) return;
 	
+	PlayerInfo player = players[consolePlayer];
+	
 	bool useSlowMo = mOptions.getTimeSlowMode();
 	bool useSlowMoSound = mOptions.getTimeSlowSound();
 	
@@ -117,31 +119,50 @@ class gb_Freezer play
 		return;
 	}
 	
-	projectileVelX.Clear();
-	projectileVelY.Clear();
-	projectileVelZ.Clear();
-		
+	if(!player.mo.CountInv("gPowerTimeFreezeColor")) player.mo.GiveInventory("CustomTimeFreezerColor", 1);
+	if(useSlowMoSound) player.mo.A_StartSound("SLWSTART",  0, CHANF_LOCAL, 1.0, ATTN_NONE, 1.0);
+	freezeActors();
+	
+	mWasLevelFrozen = true;
+  }
+  
+  void freezeActors()
+  {
+	bool useSlowMo = mOptions.getTimeSlowMode();
+	string btClassName = "BulletTime";
+	class<EventHandler> btLoaded = btClassName;
+	if(btLoaded && useSlowMo) return;
+	
 	ThinkerIterator It = ThinkerIterator.Create();
 	Actor Mo;
 	While (Mo = Actor(It.Next()))
 	{
-		If (Mo && (Mo.bISMONSTER || Mo.bMISSILE) && mo.health > 0)
+		If (Mo && (Mo.bISMONSTER || Mo.bMISSILE) && Mo.health > 0)
 		{
-			Mo.tics = -1;
-			Mo.gravity = 0;
-			
-			if(Mo.bMISSILE)
+			//if the actor is marked for frozen mmake sure to keep frozen
+			if(!Mo.CountInv("timeFreezeCustomMarker") && !Mo.CountInv("timeSlowCustomMarker"))
 			{
-				projectileVelX.Push(Mo.vel.x);
-				projectileVelY.Push(Mo.vel.y);
-				projectileVelZ.Push(Mo.vel.z);
+				if(useSlowMo)
+				{
+					Mo.GiveInventory("timeSlowCustomMarker", 1);
+					Vector3 mVel = Mo.vel;
+					Int mGravity = Mo.gravity;
+					let moInfo = timeSlowCustomMarker(Mo.FindInventory("timeSlowCustomMarker"));
+					moInfo.mVel = mVel;
+					moInfo.mGravity = mGravity;
+				}
+				else
+				{
+					Mo.GiveInventory("timeFreezeCustomMarker", 1);
+					Vector3 mVel = Mo.vel;
+					Int mGravity = Mo.gravity;
+					Let moInfo = timeFreezeCustomMarker(Mo.FindInventory("timeFreezeCustomMarker"));
+					moInfo.mVel = mVel;
+					moInfo.mGravity = mGravity;
+				}
 			}
-			
-			Mo.vel = (0, 0, 0);
 		}
 	}
-	
-	mWasLevelFrozen = true;
   }
 
   void freezePlayer()
@@ -168,6 +189,8 @@ class gb_Freezer play
   {
     //level.setFrozen(mWasLevelFrozen);
 	
+	PlayerInfo player = players[consolePlayer];
+	
 	bool useSlowMo = mOptions.getTimeSlowMode();
 	bool useSlowMoSound = mOptions.getTimeSlowSound();
 	
@@ -180,33 +203,41 @@ class gb_Freezer play
 	{
 		gb_EventHandler.SendNetworkEvent("btRemoteDeactivate", useSlowMoSound);
 	}
-		
-	ThinkerIterator It = ThinkerIterator.Create();
-	Actor Mo;
-	Int mCount = 0;
-	While (Mo = Actor(It.Next()))
-	{
-		If (Mo && (Mo.bISMONSTER || Mo.bMISSILE) && mo.health > 0)
-		{
-			Mo.tics = 1;
-			Mo.gravity = Mo.default.gravity;
-			if(!Mo.bMISSILE) Mo.vel = Mo.default.vel;
-			
-			if(Mo.bMISSILE && projectileVelX.size())
-			{
-				Mo.vel.x = projectileVelX[mCount];
-				Mo.vel.y = projectileVelY[mCount];
-				Mo.vel.z = projectileVelZ[mCount];
-				mCount++;
-			}
-		}
-	}
 	
-	projectileVelX.Clear();
-	projectileVelY.Clear();
-	projectileVelZ.Clear();
+	player.mo.TakeInventory("gPowerTimeFreezeColor", 99);
+	if(useSlowMoSound) player.mo.A_StartSound("SLWSTOP",  0, CHANF_LOCAL, 1.0, ATTN_NONE, 1.0);
+	thawActors();
 	
 	mWasLevelFrozen = false;
+  }
+  
+  void thawActors()
+  {
+	ThinkerIterator It = ThinkerIterator.Create();
+	Actor Mo;
+	While (Mo = Actor(It.Next()))
+	{
+		if(Mo.CountInv("timeFreezeCustomMarker") > 0)
+		{
+			let moInfo =  timeFreezeCustomMarker(Mo.FindInventory("timeFreezeCustomMarker"));
+			Vector3 mVel = moInfo.mVel;
+			Int mGravity = moInfo.mGravity;
+			moInfo.destroy();
+			Mo.tics = 1;
+			Mo.vel = mVel;
+			Mo.gravity = mGravity;
+		}
+		if(Mo.CountInv("timeSlowCustomMarker") > 0)
+		{
+			let moInfo =  timeSlowCustomMarker(Mo.FindInventory("timeSlowCustomMarker"));
+			Vector3 mVel = moInfo.mVel;
+			Int mGravity = moInfo.mGravity;
+			moInfo.destroy();
+			Mo.tics = 1;
+			Mo.vel = mVel;
+			Mo.gravity = mGravity;
+		}
+	}
   }
 
   void thawPlayer() const
@@ -238,3 +269,91 @@ class gb_Freezer play
   private gb_Options mOptions;
 
 } // class gb_Freezer
+
+
+
+Class timeFreezeCustomMarker : Inventory
+{
+	Default
+	{
+		+INVENTORY.UNDROPPABLE;
+		+INVENTORY.UNTOSSABLE;
+		+INVENTORY.UNCLEARABLE;
+		+INVENTORY.PERSISTENTPOWER;
+		inventory.maxamount 1;
+	}
+	
+	Override Void DoEffect()
+	{
+		super.DoEffect();
+		if(!owner) destroy();
+		
+		owner.tics = -1;
+		owner.gravity = 0;
+		owner.vel = (0, 0, 0);
+	}
+	
+	Vector3 mVel;
+	Int mGravity;
+}
+
+Class timeSlowCustomMarker : timeFreezeCustomMarker
+{
+	Default
+	{
+		+INVENTORY.UNDROPPABLE;
+		+INVENTORY.UNTOSSABLE;
+		+INVENTORY.UNCLEARABLE;
+		+INVENTORY.PERSISTENTPOWER;
+		inventory.maxamount 1;
+	}
+	
+	Override Void DoEffect()
+	{
+		super.DoEffect();
+		if(!owner) destroy();
+		
+		if(slowDelay < 11)
+		{
+			owner.tics = -1;
+			owner.gravity = 0;
+			owner.vel = (0, 0, 0);
+			slowDelay++;
+		}
+		else if(slowDelay == 11)
+		{
+			owner.tics = 1;
+			owner.vel = mVel;
+			owner.gravity = mGravity;
+			slowDelay = 0;
+		}
+	}
+	
+	Int slowDelay;
+}
+
+Class CustomTimeFreezerColor : PowerupGiver
+{
+	Default
+	{
+		Inventory.MaxAmount 0;
+		Powerup.Type "gPowerTimeFreezeColor";
+		Powerup.Duration 0x7FFFFFFD;
+		+INVENTORY.AUTOACTIVATE;
+	}
+	States
+	{
+	Spawn:
+		MEGA ABCD 4 bright;
+		Loop;
+	}
+}
+
+Class gPowerTimeFreezeColor : Powerup
+{
+	Default
+	{
+		Powerup.Color "F5 FB FF", 0.15;
+		Powerup.Duration 0x7FFFFFFD;
+	}
+}

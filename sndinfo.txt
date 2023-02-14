@@ -30,3 +30,6 @@ $volume gearbox/pack/nope 0.5
 
 gearbox/notfound sounds/error.wav
 $volume gearbox/notfound 0.5
+
+SLWSTART SLWSTART
+SLWSTOP SLWSTOP

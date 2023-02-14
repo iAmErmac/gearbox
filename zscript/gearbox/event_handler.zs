@@ -69,6 +69,7 @@ class gb_EventHandler : EventHandler
 	else
 	{
 		mFreezer.freezePlayer();
+		mFreezer.freezeActors();
 		thawDelay = 17;
 	}
 

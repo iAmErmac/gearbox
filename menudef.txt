@@ -56,6 +56,7 @@ OptionMenu gb_BehaviorOptions
   Option      "$GB_FREEZE_INVUL"             , gb_time_freeze_invul        , OnOff
   Option      "$GB_SLOW_TIME"                , gb_time_slow                , OnOff
   StaticText  "$GB_SLOW_TIME_NOTE", black
+  StaticText  "$GB_SLOW_TIME_NOTE2", black
   Option      "$GB_SLOW_SOUND"               , gb_time_slow_sound          , OnOff
   Option      "$GB_ENABLE_ON_AUTOMAP"        , gb_on_automap               , OnOff
   Option      "$GB_LOCK_POSITION"            , gb_lock_positions           , OnOff
