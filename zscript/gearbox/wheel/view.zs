@@ -468,7 +468,7 @@ class gb_WheelView
 		if(ammo1 == "")
 			mText.drawHiliteMsg(description);
 		else
-			mText.drawHiliteMsg(string.format("%s [%s\%s]", description, ammo1, ammo2));
+			mText.drawHiliteMsg(string.format("%s (%s\%s)", description, ammo1, ammo2));
 		return;
 	}
 
