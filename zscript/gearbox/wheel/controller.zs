@@ -54,7 +54,7 @@ class gb_WheelController
     PlayerInfo player = players[consolePlayer];
 	
 	//This will let us use joystick as mouse
-	let joypad_speed = Int(mOptions.getWheelScale() * 20);
+	let joypad_speed = Int(mOptions.getWheelScale() * 40);
 	let pos = joypad_speed * (
 			15.0 * player.original_cmd.sidemove		/ 10240,
 		-	15.0 * player.original_cmd.forwardmove	/ 12800);
