@@ -119,7 +119,7 @@ class gb_Freezer play
 		return;
 	}
 	
-	if(!player.mo.CountInv("gPowerTimeFreezeColor")) player.mo.GiveInventory("CustomTimeFreezerColor", 1);
+	if(!player.mo.CountInv("gbPowerTimeFreezeColor")) player.mo.GiveInventory("gbTimeFreezerColor", 1);
 	if(useSlowMoSound) player.mo.A_StartSound("SLWSTART",  0, CHANF_LOCAL, 1.0, ATTN_NONE, 1.0);
 	freezeActors();
 	
@@ -140,23 +140,23 @@ class gb_Freezer play
 		If (Mo && (Mo.bISMONSTER || Mo.bMISSILE) && Mo.health > 0)
 		{
 			//if the actor is marked for frozen mmake sure to keep frozen
-			if(!Mo.CountInv("timeFreezeCustomMarker") && !Mo.CountInv("timeSlowCustomMarker"))
+			if(!Mo.CountInv("gbtimeFreezeMarker") && !Mo.CountInv("gbtimeSlowMarker"))
 			{
 				if(useSlowMo)
 				{
-					Mo.GiveInventory("timeSlowCustomMarker", 1);
+					Mo.GiveInventory("gbtimeSlowMarker", 1);
 					Vector3 mVel = Mo.vel;
 					Int mGravity = Mo.gravity;
-					let moInfo = timeSlowCustomMarker(Mo.FindInventory("timeSlowCustomMarker"));
+					let moInfo = gbtimeSlowMarker(Mo.FindInventory("gbtimeSlowMarker"));
 					moInfo.mVel = mVel;
 					moInfo.mGravity = mGravity;
 				}
 				else
 				{
-					Mo.GiveInventory("timeFreezeCustomMarker", 1);
+					Mo.GiveInventory("gbtimeFreezeMarker", 1);
 					Vector3 mVel = Mo.vel;
 					Int mGravity = Mo.gravity;
-					Let moInfo = timeFreezeCustomMarker(Mo.FindInventory("timeFreezeCustomMarker"));
+					Let moInfo = gbtimeFreezeMarker(Mo.FindInventory("gbtimeFreezeMarker"));
 					moInfo.mVel = mVel;
 					moInfo.mGravity = mGravity;
 				}
@@ -204,7 +204,7 @@ class gb_Freezer play
 		gb_EventHandler.SendNetworkEvent("btRemoteDeactivate", useSlowMoSound);
 	}
 	
-	player.mo.TakeInventory("gPowerTimeFreezeColor", 99);
+	player.mo.TakeInventory("gbPowerTimeFreezeColor", 99);
 	if(useSlowMoSound) player.mo.A_StartSound("SLWSTOP",  0, CHANF_LOCAL, 1.0, ATTN_NONE, 1.0);
 	thawActors();
 	
@@ -217,9 +217,9 @@ class gb_Freezer play
 	Actor Mo;
 	While (Mo = Actor(It.Next()))
 	{
-		if(Mo.CountInv("timeFreezeCustomMarker") > 0)
+		if(Mo.CountInv("gbtimeFreezeMarker") > 0)
 		{
-			let moInfo =  timeFreezeCustomMarker(Mo.FindInventory("timeFreezeCustomMarker"));
+			let moInfo =  gbtimeFreezeMarker(Mo.FindInventory("gbtimeFreezeMarker"));
 			Vector3 mVel = moInfo.mVel;
 			Int mGravity = moInfo.mGravity;
 			moInfo.destroy();
@@ -227,9 +227,9 @@ class gb_Freezer play
 			Mo.vel = mVel;
 			Mo.gravity = mGravity;
 		}
-		if(Mo.CountInv("timeSlowCustomMarker") > 0)
+		if(Mo.CountInv("gbtimeSlowMarker") > 0)
 		{
-			let moInfo =  timeSlowCustomMarker(Mo.FindInventory("timeSlowCustomMarker"));
+			let moInfo =  gbtimeSlowMarker(Mo.FindInventory("gbtimeSlowMarker"));
 			Vector3 mVel = moInfo.mVel;
 			Int mGravity = moInfo.mGravity;
 			moInfo.destroy();
@@ -272,7 +272,7 @@ class gb_Freezer play
 
 
 
-Class timeFreezeCustomMarker : Inventory
+Class gbtimeFreezeMarker : Inventory
 {
 	Default
 	{
@@ -297,7 +297,7 @@ Class timeFreezeCustomMarker : Inventory
 	Int mGravity;
 }
 
-Class timeSlowCustomMarker : timeFreezeCustomMarker
+Class gbtimeSlowMarker : gbtimeFreezeMarker
 {
 	Default
 	{
@@ -332,12 +332,12 @@ Class timeSlowCustomMarker : timeFreezeCustomMarker
 	Int slowDelay;
 }
 
-Class CustomTimeFreezerColor : PowerupGiver
+Class gbTimeFreezerColor : PowerupGiver
 {
 	Default
 	{
 		Inventory.MaxAmount 0;
-		Powerup.Type "gPowerTimeFreezeColor";
+		Powerup.Type "gbPowerTimeFreezeColor";
 		Powerup.Duration 0x7FFFFFFD;
 		+INVENTORY.AUTOACTIVATE;
 	}
@@ -349,7 +349,7 @@ Class CustomTimeFreezerColor : PowerupGiver
 	}
 }
 
-Class gPowerTimeFreezeColor : Powerup
+Class gbPowerTimeFreezeColor : Powerup
 {
 	Default
 	{
